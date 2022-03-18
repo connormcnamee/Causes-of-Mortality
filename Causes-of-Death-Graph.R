@@ -9,7 +9,7 @@ bluefill <- rgb(0.83,0.96,1.00, alpha = 1)
 blackcolor <- rgb(0.10,0.08,0.00, alpha = 1)
 redcolor <- rgb(1.00,0.25,0.25, alpha = 1)
 bluecolor <- rgb(0.40,0.90,1.00, alpha = 1)
-t <- 6
+t <- 8
 blue <- c(0*t,.1*t,.08*t,.5*t,.8*t,.76*t,.55*t,.7*t,.9*t,1.2*t,1*t,.8*t)
 months <- c("a","b","c","d","e","f","g","h","i","j","k","l")
 red <- c(0,0,0,0,0,.18*t,.25*t,.35*t,.23*t,.2*t,.16*t,.1*t)
@@ -22,10 +22,11 @@ plot2 <- ggplot(chart1) +
   geom_col(aes(x = months,y=red),width = 1, color = redcolor,fill = redfill) + 
   coord_polar(start = -1.6) +
   theme_minimal() +
+  labs(subtitle = "1.\nAPRIL 1854 to MARCH 1855") +
   theme(axis.text = element_blank(),
         panel.grid = element_blank(),
         axis.title = element_blank(),
-        plot.margin = margin(-5,-5,-5,-5))
+        plot.subtitle = element_text(size= 15, hjust = .5, vjust=-50))
 
 
 u <- 8
@@ -44,14 +45,22 @@ plot1 <- ggplot(chart2) +
   geom_col(aes(x = months, y = layer2), width = 1, color = color2, fill = fill2) +
   geom_col(aes(x = months, y = layer3),width = 1, color = color3, fill = fill3) +
   theme_minimal() +
-  coord_polar(start = -1.6) +
+  coord_polar(start = -1.6, clip = "off") +
+  labs(subtitle =  "2.\nAPRIL 1855 to MARCH 1856") +
   theme(axis.text = element_blank(),
         panel.grid = element_blank(),
-        axis.title = element_blank())
+        axis.title = element_blank(),
+        plot.subtitle = element_text(size= 15, hjust = .5, vjust=-50))
 
-png("Causes-of-Death.png", width = 800, height = 450)
+layout <- layout <- c(
+  area(t=1.5, r=2, b=2, l=1),
+  area(t=1, r=6, b=2.5, l=3)
+)
+png("Causes-of-Death.png", width = 1300, height = 800)
 plot1 + plot2 +
-  plot_layout(widths = c(10,20), heights = c(10,20))
+  plot_layout(design= layout) +
+  plot_annotation(title = "Diagram of the Causes of Mortality\nin the Army in the East.") &
+  theme(plot.title = element_text(hjust=.5, vjust = -20,size = 30))
 dev.off()
 
-?plot_layout
+?coord_polar
