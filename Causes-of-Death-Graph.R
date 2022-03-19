@@ -1,6 +1,7 @@
 library(tidyverse)
 library(plotly)
 library(patchwork)
+library(showtext)
 
 
 blackfill <- rgb(0.33,0.33,0.33, alpha = 1)
@@ -22,11 +23,12 @@ plot2 <- ggplot(chart1) +
   geom_col(aes(x = months,y=red),width = 1, color = redcolor,fill = redfill) + 
   coord_polar(start = -1.6) +
   theme_minimal() +
-  labs(subtitle = "1.\nAPRIL 1854 to MARCH 1855") +
+  labs(subtitle = "1.\n            APRIL 1854 to MARCH 1855") +
   theme(axis.text = element_blank(),
         panel.grid = element_blank(),
         axis.title = element_blank(),
-        plot.subtitle = element_text(size= 15, hjust = .5, vjust=-50))
+        plot.subtitle = element_text(size= 15, hjust = .6, vjust=-50),
+        plot.margin = unit(c(0,0,0,0),'cm'))
 
 
 u <- 8
@@ -40,27 +42,39 @@ color2 <- c(blackcolor,redcolor,redcolor,redcolor,redcolor,bluecolor,redcolor,bl
 fill3 <- c(blackfill,blackfill,blackfill,blackfill,blackfill,blackfill,blackfill,redfill,redfill,blackfill,blackfill,bluefill)
 color3 <- c(blackcolor,blackcolor,blackcolor,blackcolor,blackcolor,blackcolor,blackcolor,redcolor,redcolor,blackcolor,blackcolor,bluecolor)
 chart2 <- tibble(layer1,layer2,layer3,months)
+
 plot1 <- ggplot(chart2) +
   geom_col(aes(x = months, y = layer1), width = 1, color = color1, fill = fill1) +
   geom_col(aes(x = months, y = layer2), width = 1, color = color2, fill = fill2) +
   geom_col(aes(x = months, y = layer3),width = 1, color = color3, fill = fill3) +
   theme_minimal() +
-  coord_polar(start = -1.6, clip = "off") +
+  coord_polar(start = -1.6) +
   labs(subtitle =  "2.\nAPRIL 1855 to MARCH 1856") +
   theme(axis.text = element_blank(),
         panel.grid = element_blank(),
         axis.title = element_blank(),
-        plot.subtitle = element_text(size= 15, hjust = .5, vjust=-50))
+        plot.subtitle = element_text(size= 15, hjust = .4, vjust=0),
+        plot.margin = unit(c(0,0,1,0),'cm'))
 
-layout <- layout <- c(
-  area(t=1.5, r=2, b=2, l=1),
-  area(t=1, r=6, b=2.5, l=3)
+layout <- c(
+  area(t = 2, l = 2, b = 3, r = 3),
+  area(t = 0, l = 4, b = 4, r = 6)
+)
+
+layout2 <- c("
+###BBBB
+#AABBBB
+#AABBBB
+#AABBBB
+###BBBB
+CCCCCCC
+ "
+  
 )
 png("Causes-of-Death.png", width = 1300, height = 800)
 plot1 + plot2 +
   plot_layout(design= layout) +
-  plot_annotation(title = "Diagram of the Causes of Mortality\nin the Army in the East.") &
-  theme(plot.title = element_text(hjust=.5, vjust = -20,size = 30))
+  plot_annotation(title = "   Diagram of the Causes of Mortality\nin the Army in the East.") &
+  theme(plot.title = element_text(hjust=.6, vjust = -28,size = 30))
 dev.off()
 
-?coord_polar
