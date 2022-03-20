@@ -2,6 +2,11 @@ library(tidyverse)
 library(plotly)
 library(patchwork)
 library(showtext)
+font_add_google("Dancing Script", "Dancing Script")
+font_add_google("Imperial Script", "Imperial Script")
+font_add_google("Lancelot","Lancelot")
+font_add_google("Hurricane","Hurricane")
+showtext_auto()
 
 
 blackfill <- rgb(0.33,0.33,0.33, alpha = 1)
@@ -28,7 +33,7 @@ plot2 <- ggplot(chart1) +
         panel.grid = element_blank(),
         axis.title = element_blank(),
         plot.subtitle = element_text(size= 15, hjust = .6, vjust=-50),
-        plot.margin = unit(c(0,0,0,0),'cm'))
+        plot.margin = unit(rep(-7,4), "cm"))
 
 
 u <- 8
@@ -54,27 +59,20 @@ plot1 <- ggplot(chart2) +
         panel.grid = element_blank(),
         axis.title = element_blank(),
         plot.subtitle = element_text(size= 15, hjust = .4, vjust=0),
-        plot.margin = unit(c(0,0,1,0),'cm'))
+        plot.margin = unit(rep(-4,-4,-4,-7), "cm"))
 
 layout <- c(
-  area(t = 2, l = 2, b = 3, r = 3),
-  area(t = 0, l = 4, b = 4, r = 6)
+  area(t = 2, l = 0, b = 8, r = 5),
+  area(t = 1, l = 5, b = 8, r = 10),
+  area(t = 0, l = 0, b = 8, r = 10)
 )
 
-layout2 <- c("
-###BBBB
-#AABBBB
-#AABBBB
-#AABBBB
-###BBBB
-CCCCCCC
- "
-  
-)
-png("Causes-of-Death.png", width = 1300, height = 800)
+png("Causes-of-Death.png", width = 1300, height = 900)
 plot1 + plot2 +
   plot_layout(design= layout) +
-  plot_annotation(title = "   Diagram of the Causes of Mortality\nin the Army in the East.") &
-  theme(plot.title = element_text(hjust=.6, vjust = -28,size = 30))
+  plot_annotation(title = "DIAGRAM OF THE CAUSES OF MORTALITY\nin the Army in the East.",
+                  theme =   theme(plot.title = element_text(hjust=.5, vjust = -28,size = 20, family = "Lancelot", face = "bold")))
 dev.off()
 
+
+?annotate
