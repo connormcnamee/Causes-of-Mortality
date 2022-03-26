@@ -6,6 +6,9 @@ font_add_google("Dancing Script", "Dancing Script")
 font_add_google("Imperial Script", "Imperial Script")
 font_add_google("Lancelot","Lancelot")
 font_add_google("Hurricane","Hurricane")
+font_add_google("Six Caps", "Six Caps")
+font_add_google("Charm","Charm")
+font_add_google("Oswald","Oswald")
 showtext_auto()
 
 
@@ -26,14 +29,14 @@ plot2 <- ggplot(chart1) +
   geom_col(aes(x = months,y=blue), width = 1, color = bluecolor, fill = bluefill) +
   geom_col(aes(x = months,y=black),width = 1, color = blackcolor,fill = blackfill) + 
   geom_col(aes(x = months,y=red),width = 1, color = redcolor,fill = redfill) + 
-  coord_polar(start = -1.6) +
+  coord_polar(start = -1.58) +
   theme_minimal() +
   labs(subtitle = "1.\n            APRIL 1854 to MARCH 1855") +
   theme(axis.text = element_blank(),
         panel.grid = element_blank(),
         axis.title = element_blank(),
-        plot.subtitle = element_text(size= 15, hjust = .6, vjust=-50),
-        plot.margin = unit(rep(-7,4), "cm"))
+        plot.subtitle = element_text(size= 15, hjust = .6, vjust=-50, family="Oswald"),
+        plot.margin = unit(rep(-2,4), "cm"))
 
 
 u <- 8
@@ -53,26 +56,30 @@ plot1 <- ggplot(chart2) +
   geom_col(aes(x = months, y = layer2), width = 1, color = color2, fill = fill2) +
   geom_col(aes(x = months, y = layer3),width = 1, color = color3, fill = fill3) +
   theme_minimal() +
-  coord_polar(start = -1.6) +
-  labs(subtitle =  "2.\nAPRIL 1855 to MARCH 1856") +
+  coord_polar(start = -1.58) +
+  labs(subtitle =  "      2.\nAPRIL 1855 to MARCH 1856",
+       caption = "The Areas of the blue, red, & black wedges are each measured from\n  the centre as the common vertex.\nThe blue wedges are measured from the centre of the circle represent area\n  for area the deaths from Preventible or Mitigable Zymotic diseases; the\n  red wedges measured from the centre the deaths from wounds; & the\n  black wedges measured from the centre the deaths from all other causes.\nThe black line across the red triangle in Nov. 1854 marks the boundary\n  of the deaths from all other causes during the month\nIn October 1854, & April 1855; the black area coincides with the red;\n  in January & February 1855; the blue coincides with the black\nThe entire areas may be compared by following the blue, the red, & the\n  black lines enclosing them.") +
   theme(axis.text = element_blank(),
         panel.grid = element_blank(),
         axis.title = element_blank(),
-        plot.subtitle = element_text(size= 15, hjust = .4, vjust=0),
-        plot.margin = unit(rep(-4,-4,-4,-7), "cm"))
+        plot.subtitle = element_text(size= 15, hjust = .4, vjust=0, family = "Oswald", lineheight=1.1),
+        plot.margin = unit(c(-5,-5,-5,-5), "cm"),
+        plot.caption = element_text(hjust = 0, family = "Charm", face = "italic",size = 12.5, vjust =6, lineheight = 1.15))
 
 layout <- c(
-  area(t = 2, l = 0, b = 8, r = 5),
-  area(t = 1, l = 5, b = 8, r = 10),
-  area(t = 0, l = 0, b = 8, r = 10)
+  area(t = 4, l = 0, b = 9, r = 4),
+  area(t = 0, l = 5, b = 10, r = 10),
+  area(t = 0, l = 0, b =10, r = 10)
 )
 
 png("Causes-of-Death.png", width = 1300, height = 900)
 plot1 + plot2 +
   plot_layout(design= layout) +
-  plot_annotation(title = "DIAGRAM OF THE CAUSES OF MORTALITY\nin the Army in the East.",
-                  theme =   theme(plot.title = element_text(hjust=.5, vjust = -28,size = 20, family = "Lancelot", face = "bold")))
+  plot_annotation(title = "DIAGRAM OF THE CAUSES OF MORTALITY",
+                  subtitle = "in  the  ARMY  in  the  EAST",
+                  theme =   theme(plot.title = element_text(hjust=.5, vjust = -20,size = 19, family = "Lancelot", face = "bold"),
+                                  plot.subtitle = element_text(hjust=.5, vjust = -45,size = 20, family = "Six Caps", lineheight=1.1)))
 dev.off()
 
 
-?annotate
+?element_text
