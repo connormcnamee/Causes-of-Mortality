@@ -31,16 +31,16 @@ plot2 <- ggplot(chart1) +
   geom_col(aes(x = months,y=blue), width = 1, color = bluecolor, fill = bluefill) +
   geom_col(aes(x = months,y=black),width = 1, color = blackcolor,fill = blackfill) + 
   geom_col(aes(x = months,y=red),width = 1, color = redcolor,fill = redfill) +
-  annotate("text",x=c(seq(1,6,1),7.1,seq(8,12,1)), y=c(.4,.4,.4,.55,.85,.81,.6,.75,.95,1.25,1.05,.85),label=c("APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER","JANUARY 1855","FEBRUARY","MARCH"),size=3, fontface="bold",
+  annotate("text",x=c(seq(1,6,1),7.1,seq(8,12,1)), y=c(.4,.4,.4,.55,.85,.81,.6,.75,.95,1.25,1.05,.85),label=c("APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER","JANUARY 1855","FEBRUARY","MARCH 1855."),size=3, fontface="bold",
            angle=c(80,40,10,-15,-45,-75,-105,-135,-165,165,140,110)) +
   annotate("text",x=c(1,3.2,6.6),y=c(.35,.25,.7),label=c("1854","BULGARIA","CRIMEA"),size=3,fontface="bold.italic",angle=c(80,90,0)) +
   coord_polar(start = -1.58) +
   theme_minimal() +
-  labs(subtitle = "1.\n            APRIL 1854 to MARCH 1855") +
+  labs(subtitle = "1.\n            APRIL 1854 to MARCH 1855", caption = " \n \n \n \n \n \n \n") +
   theme(axis.text = element_blank(),
         panel.grid = element_blank(),
         axis.title = element_blank(),
-        plot.subtitle = element_text(size= 12, hjust = .6, vjust=-63.5, family="Oswald"),
+        plot.subtitle = element_text(size= 15, hjust = .6, vjust=-64.5, family="Oswald"),
         plot.margin = unit(rep(-2,4), "cm"))
 
 
@@ -60,32 +60,47 @@ plot1 <- ggplot(chart2) +
   geom_col(aes(x = months, y = layer1), width = 1, color = color1, fill = fill1) +
   geom_col(aes(x = months, y = layer2), width = 1, color = color2, fill = fill2) +
   geom_col(aes(x = months, y = layer3),width = 1, color = color3, fill = fill3) +
-  annotate("text", x=seq(1,12,1), y=c(1,.98,1.1,.7,.75,.65,.65,.65,.65,.65,.65,.65), label=c("APRIL 1855","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER","JANUARY","FEBRUARY","MARCH"), size=2, angle=c(75,45,15,-15,-45,-75,-105,-135,-165,165,135,105),fontface="bold.italic") +
+  annotate("text", x=seq(1,12,1), y=c(1,.98,1.1,.7,.75,.65,.65,.65,.65,.65,.65,.65), label=c("APRIL 1855","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER","JANUARY","FEBRUARY","MARCH"), size=2.5, angle=c(75,45,15,-15,-45,-75,-105,-135,-165,165,135,105),fontface="bold.italic") +
+  annotate("text", x=10, y = .57,label="1856",size=2.5,angle=165,fontface="bold.italic") +
   theme_minimal() +
   coord_polar(start = -1.58) +
-  labs(subtitle =  "      2.\nAPRIL 1855 to MARCH 1856",
-       caption = "The Areas of the blue, red, & black wedges are each measured from\n  the centre as the common vertex.\nThe blue wedges are measured from the centre of the circle represent area\n  for area the deaths from Preventible or Mitigable Zymotic diseases; the\n  red wedges measured from the centre the deaths from wounds; & the\n  black wedges measured from the centre the deaths from all other causes.\nThe black line across the red triangle in Nov. 1854 marks the boundary\n  of the deaths from all other causes during the month\nIn October 1854, & April 1855; the black area coincides with the red;\n  in January & February 1855; the blue coincides with the black\nThe entire areas may be compared by following the blue, the red, & the\n  black lines enclosing them.") +
+  labs(subtitle =  "      2.\nAPRIL 1855 to MARCH 1856") +
+     #  caption = "The Areas of the blue, red, & black wedges are each measured from\n  the centre as the common vertex.\nThe blue wedges are measured from the centre of the circle represent area\n  for area the deaths from Preventible or Mitigable Zymotic diseases; the\n  red wedges measured from the centre the deaths from wounds; & the\n  black wedges measured from the centre the deaths from all other causes.\nThe black line across the red triangle in Nov. 1854 marks the boundary\n  of the deaths from all other causes during the month\nIn October 1854, & April 1855; the black area coincides with the red;\n  in January & February 1855; the blue coincides with the black\nThe entire areas may be compared by following the blue, the red, & the\n  black lines enclosing them.") +
   theme(axis.text = element_blank(),
         panel.grid = element_blank(),
         axis.title = element_blank(),
-        plot.subtitle = element_text(size= 12, hjust = .4, vjust=-2, family = "Oswald", lineheight=1.07),
+        plot.subtitle = element_text(size= 15, hjust = .4, vjust=-8, family = "Oswald", lineheight=1.07),
         plot.margin = unit(c(-5,-5,-8,-5), "cm"),
         plot.caption = element_text(hjust = 0, family = "Charm", face = "italic",size = 12.5, vjust =6, lineheight = 1.25),
         aspect.ratio=1)
 
 
 layout <- c(
-  area(t = 2, l = 0, b = 9, r = 4),
-  area(t = 0, l = 5, b = 10, r = 10),
-  area(t = 0, l = 0, b =10, r = 10)
+  area(t = 4, l = 1, b = 20, r = 5),
+  area(t = 0, l = 5, b = 25, r = 10),
+  area(t = 0, l = 0, b =25, r = 10)
 )
 
-png("Causes-of-Death.png", width = 1300, height = 900)
-plot1 + plot2 +
+picture <- image_graph(width = 1300, height = 900)
+  plot1 + plot2 +
   plot_layout(design= layout) +
   plot_annotation(title = "DIAGRAM OF THE CAUSES OF MORTALITY",
                   subtitle = "in the ARMY in the EAST",
-                  theme =   theme(plot.title = element_text(hjust=.5, vjust = -17,size = 19, family = "Lancelot", face = "bold"),
-                                  plot.subtitle = element_text(hjust=.5, vjust = -35,size = 14.5, family = "serif", face= "bold",lineheight=1.1)))
+                  theme =   theme(plot.title = element_text(hjust=.5, vjust = -25,size = 19, family = "Lancelot", face = "bold"),
+                                  plot.subtitle = element_text(hjust=.5, vjust = -48,size = 14.5, family = "serif", face= "bold",lineheight=1.1)))
 dev.off()
 
+img <- image_draw(picture)
+#text(160, 700, "The Areas of the blue, red, & black wedges are each measured from\n  the centre as the common vertex.\nThe blue wedges are measured from the centre of the circle represent area\n  for area the deaths from Preventible or Mitigable Zymotic diseases; the\n  red wedges measured from the centre the deaths from wounds; & the\n  black wedges measured from the centre the deaths from all other causes.\nThe black line across the red triangle in Nov. 1854 marks the boundary\n  of the deaths from all other causes during the month\nIn October 1854, & April 1855; the black area coincides with the red;\n  in January & February 1855; the blue coincides with the black\nThe entire areas may be compared by following the blue, the red, & the\n  black lines enclosing them.", family = "Charm", cex = 1, srt = 0, adj=0, lheight=1.2)
+segments(x0=450,y0=540, x1=722,y1=448, lwd = 1, lty = "dotted")
+segments(x0=450,y0=540, x1=177,y1=439, lwd = 1, lty = "dotted")
+
+
+print(img)
+
+
+png("Death-Causes.png", width = 1300, height = 900)
+image_draw(picture)
+dev.off()
+
+?abline
